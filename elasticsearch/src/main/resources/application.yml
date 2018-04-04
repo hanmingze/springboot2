@@ -5,8 +5,8 @@ spring:
   elasticsearch:
     jest:
       uris:
-      - http://localhost:9200
-      - http://localhost:9201  # ES服务器的地址！
+      - http://192.168.0.196:9200
+      - http://192.168.0.196:9200  # ES服务器的地址！
       read-timeout: 5000
       multi-threaded: true
       connection-timeout: 5000
