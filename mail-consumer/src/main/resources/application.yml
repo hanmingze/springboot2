@@ -1,0 +1,118 @@
+table:
+  count: 3
+
+server:
+  context-path: /mail-consumer
+  port: 8082
+  session:
+    timeout: 900
+
+
+## Spring配置:
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: NON_NULL
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+
+#  redis:
+#    pool:
+#      min-idle: 100
+#      max-idle: 100
+#      max-wait: -1
+#      max-active: 1000
+#    timeout: 6000
+#    cluster:
+#      max-redirects: 1000
+#      nodes:
+#        - 192.168.1.115:7001
+#        - 192.168.1.115:7002
+#        - 192.168.1.115:7003
+#        - 192.168.1.115:7004
+#        - 192.168.1.115:7005
+#        - 192.168.1.115:7006
+
+  mail:
+    default-encoding: UTF-8
+    host: smtp.126.com
+    username: jiaozhiguang@126.com
+    password: ENC(mci2ynpyAO6+uIYJ/xQtV/dp1mg1DTL8)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 30000
+
+
+mail:
+  fromMail:
+    addr: jiaozhiguang@126.com
+
+jasypt:
+  encryptor:
+    password: 123456
+
+druid:
+    type: com.alibaba.druid.pool.DruidDataSource
+    master:
+        url: jdbc:mysql://localhost:3306/mail?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: 123456
+        initialSize: 5
+        minIdle: 1
+        #maxIdle: 10
+        maxActive: 100
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,log4j
+        useGlobalDataSourceStat: true
+    slave:
+        url: jdbc:mysql://localhost:3316/mail?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: 123456
+        initialSize: 5
+        minIdle: 1
+        #maxIdle: 10
+        maxActive: 100
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,log4j
+        useGlobalDataSourceStat: true
+
+mybatis:
+    type-aliases-package: com.dljd.mail.entity
+    config-locations: classpath:mybatis/mybatis-config.xml
+    mapper-locations: classpath:mybatis/mapper/*.xml
+
+logging:
+    level:
+        tk.mybatis: TRACE
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
